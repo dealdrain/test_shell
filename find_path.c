@@ -9,7 +9,7 @@
 char *find_path(char *paths, char *cmd)
 {
     char **path_tokens = custom_strtok(paths, ":");
-    int x = 0;
+    int x = 0, i;
     size_t len = 0;
     char *fullpath = NULL;
 
@@ -22,7 +22,7 @@ char *find_path(char *paths, char *cmd)
         fullpath = malloc(len);
         if (fullpath == NULL)
         {
-            for (int i = 0; path_tokens[i] != NULL; i++)
+	    for (i = 0; path_tokens[i] != NULL; i++)
                 free(path_tokens[i]);
             free(path_tokens);
             return NULL;
@@ -34,7 +34,7 @@ char *find_path(char *paths, char *cmd)
 
         if (access(fullpath, X_OK) == 0)
         {
-            for (int i = 0; path_tokens[i] != NULL; i++)
+            for (i = 0; path_tokens[i] != NULL; i++)
                 free(path_tokens[i]);
             free(path_tokens);
             return fullpath;
@@ -45,7 +45,7 @@ char *find_path(char *paths, char *cmd)
         x++;
     }
 
-    for (int i = 0; path_tokens[i] != NULL; i++)
+    for (i = 0; path_tokens[i] != NULL; i++)
         free(path_tokens[i]);
     free(path_tokens);
     return NULL;
